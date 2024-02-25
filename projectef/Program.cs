@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddDbContext<TasksContext>(p => p.UseInMemoryDatabase("TasksDB"));
 
 // Set connection to SQL Server
-builder.Services.AddSqlServer<TasksContext>("Data Source=(local); Initial Catalog= TasksDB;Trusted_Connection=True; Integrated Security=True;TrustServerCertificate=True");
+builder.Services.AddSqlServer<TasksContext>(builder.Configuration.GetConnectionString("LocalSqlServer"));
 
 
 var app = builder.Build();
