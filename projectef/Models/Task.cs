@@ -30,7 +30,7 @@ public class Task
 
 public enum Priority
 {
-    Baja,
-    Media,
-    Alta
+    Low,
+    Medium,
+    High
 }
