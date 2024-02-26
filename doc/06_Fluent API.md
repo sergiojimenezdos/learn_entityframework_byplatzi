@@ -1,17 +1,5 @@
 # Fluent API
 
-> Es una forma avanzada de configurar los 
-modelos de Entity Framework sin utilizar 
-atributos o data-annotations, permitiendo diseñar 
-la base de datos considerando aspectos 
-avanzados. 
-Se usan funciones de extensión anidadas para 
-configurar tablas, columnas y especificar el 
-mapeo de los datos. *by Platzi*
-
-
-
-
 Fluent API en .NET es una técnica utilizada para configurar y personalizar el mapeo entre objetos de dominio y tablas de base de datos en Entity Framework. A diferencia de DataAnnotations, que utiliza atributos directamente en las clases de dominio, Fluent API permite configurar el mapeo de manera más flexible y expresiva mediante llamadas a métodos encadenados.
 
 Aquí hay algunas características clave de Fluent API:
@@ -52,3 +40,34 @@ public class ProductConfiguration : EntityTypeConfiguration<Product>
 En este ejemplo, hemos personalizado la tabla, el esquema y la columna para la propiedad Name utilizando Fluent API.
 
 En resumen, Fluent API es una herramienta poderosa para personalizar el mapeo de entidades en Entity Framework, y se utiliza cuando necesitas configuraciones más avanzadas o cuando prefieres mantener la configuración separada de las clases de dominio.
+
+
+## Platzi notes
+
+Es una forma avanzada de configurar los 
+modelos de Entity Framework sin utilizar 
+atributos o data-annotations, permitiendo diseñar 
+la base de datos considerando aspectos 
+avanzados. 
+Se usan funciones de extensión anidadas para 
+configurar tablas, columnas y especificar el 
+mapeo de los datos. 
+
+``` cs
+builder.Entity<Client>(entity =>
+{
+    entity.ToTable("Client");
+    entity.HasKey(e => e.PersonId);
+    entity.Property(e => e.ContactName).IsRequired(false).HasMaxLength(300);
+    entity.Property(e => e.ContactPhone).IsRequired(false).HasMaxLength(50);
+    entity.Property(e => e.Phone2).IsRequired(false).HasMaxLength(50);
+    entity.HasOne(e => e.Person)
+        .WithOne(e => e.Client)
+        .HasForeignKey<Client>(b => b.PersonId)
+        .HasConstraintName("FK_Client_Person")
+        .OnDelete(DeleteBehavior.SetNull);
+ })
+```
+
+Fluent API predomina sobre DataAnnotations. EF prepara los scripts sobre DataAnnotations y luego ejecuta *OnModelCreating()*, así que *Fluent API* manda.
+
