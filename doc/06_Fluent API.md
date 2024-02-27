@@ -1,5 +1,7 @@
 # Fluent API
 
+🔗 [Microsoft documentation](https://learn.microsoft.com/en-us/ef/ef6/modeling/code-first/fluent/types-and-properties)
+  
 Fluent API en .NET es una técnica utilizada para configurar y personalizar el mapeo entre objetos de dominio y tablas de base de datos en Entity Framework. A diferencia de DataAnnotations, que utiliza atributos directamente en las clases de dominio, Fluent API permite configurar el mapeo de manera más flexible y expresiva mediante llamadas a métodos encadenados.
 
 Aquí hay algunas características clave de Fluent API:
