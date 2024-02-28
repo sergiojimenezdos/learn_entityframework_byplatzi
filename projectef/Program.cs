@@ -37,4 +37,16 @@ app.MapGet("/api/lowertasksfull", async ([FromServices] TasksContext dbContext) 
     return Results.Ok(dbContext.Tasks.Include(t=>t.Category).Where(t => t.Priority == projectef.Models.Priority.Low));
 });
 
+
+app.MapPost("/api/inserttask", async ([FromServices] TasksContext dbContext, [FromBody] projectef.Models.Task myNewTask) =>
+{
+    myNewTask.TaskId = Guid.NewGuid();
+    myNewTask.CreationDate = DateTime.Now;
+
+    await dbContext.Tasks.AddAsync(myNewTask);
+    await dbContext.SaveChangesAsync();
+
+    return Results.Ok(myNewTask);
+});
+
 app.Run();
